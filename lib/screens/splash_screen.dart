@@ -8,6 +8,7 @@ import 'dart:convert';
 import '../controllers/httpHelp.dart';
 import '../controllers/routes.dart';
 import '../screens/lockscreen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -84,11 +85,9 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("assets/images/logomark.png", width: 100,),
-            SizedBox(height: 10,),
-            Text("TOBA APP", style: TextStyle(color: const Color(0xff528DE7), fontSize: 30,
-            fontWeight: FontWeight.bold
-            ),)
+            Image.asset("assets/images/Toba/Toba_by_BicaraAI.png", width: 130,),
+          
+           
           ],
 
         ),

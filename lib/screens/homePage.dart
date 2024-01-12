@@ -56,7 +56,7 @@ void _onItemTapped(int index) {
             title: Container(
             
             child:
-          Row(children:[Image.asset("assets/images/img_logo_1.png",height: 32,)
+          Row(children:[Image.asset("assets/images/Toba/Toba.png",height: 32,)
           ,Expanded(child: Container( //Expanded
         alignment: Alignment.centerRight,
         child: InkWell(

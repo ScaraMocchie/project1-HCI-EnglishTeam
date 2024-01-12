@@ -1,4 +1,4 @@
-name: tobaapp
+name: Toba
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -51,10 +51,12 @@ dependencies:
   
 flutter_icons:
   android: "launcher_icon"
-  image_path: "assets/icons/app_icon1.png"
+  ios: true
+  image_path: "assets/images/Toba/Logo_Toba.png"
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -100,6 +102,12 @@ flutter:
     - assets/images/search_img.svg
     - assets/images/succes_reed.svg
     - assets/images/congrats_VIP.svg
+    - assets/images/Toba/Logo Toba.svg
+    - assets/images/Toba/Logo_Toba.png
+    - assets/images/Toba/Toba_by_BicaraAI.svg
+    - assets/images/Toba/Toba_by_BicaraAI.png
+    - assets/images/Toba/Toba.svg
+    - assets/images/Toba/Toba.png
 
     - assets/images/avatars/Avatar01.svg
     - assets/images/avatars/Avatar03.svg
