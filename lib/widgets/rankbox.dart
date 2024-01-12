@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../controllers/accountData.dart';
 class RankBox extends StatelessWidget {
-  final String rank;
+  String rank;
   final int profile;
   final String username;
   final String exp;
-  const RankBox({
+  RankBox({
     required this.rank,
     required this.profile,
     required this.username,
     required this.exp,
     super.key});
-
+  
   @override
   Widget build(BuildContext context) {
+    if(rank=="-1"){
+      rank = "???";
+    }
     var color = Colors.transparent;
     if (this.rank=="1"){
       color = Color(0xffFFC107);
@@ -45,7 +48,7 @@ class RankBox extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: (rank.length<=2)?37:60,
+                width: (rank.length<=2)?37:(rank.length==3)?60:80,
                 child: Text(
                   this.rank, textAlign:TextAlign.center,
                   style: TextStyle(
