@@ -179,6 +179,7 @@ Widget build(BuildContext context){
              )
     ,Container(
           width: mediaQueryData.size.width*9/11,
+          // height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             
           ),
@@ -218,20 +219,15 @@ Widget build(BuildContext context){
               height: 24,
               
              ),Container( //tempat jawaban user
-              padding: EdgeInsets.all(8),
+              // padding: EdgeInsets.all(8),
   width: mediaQueryData.size.width*9/11, // Set your desired width
-  height: 200, // Set your desired height
+  // height: 200, // Set your desired height
   decoration: BoxDecoration(
-    border: Border.all(color: Colors.blue),
-    borderRadius: BorderRadius.circular(15),
+    // border: Border.all(color: Colors.blue),
+    // borderRadius: BorderRadius.circular(15),
   ),
-  child: Column(
-    children: [
-      Expanded(
-        child: chooseAnswer()
-      ),
-    ],
-  ),
+  child: chooseAnswer()
+
 )
             ],
           ),
@@ -251,7 +247,9 @@ Widget build(BuildContext context){
                   
                   },
                 child: Text("Finish Review",style: TextStyle(color: Colors.white),),
-              )]/*utama*/
+              ),
+              SizedBox(height: 30,)
+              ]/*utama*/
               ,)
               ),
              ))
@@ -264,55 +262,129 @@ Widget build(BuildContext context){
       )
       );
 }
-Color chooseByPoint(double? based){
+
+String infoPoint(double? based){
   if(based! >=0.8){
-    return Colors.green;
-  }else if(based! <0.8 && based! >=0.4){
-    return Colors.orange;
+    return "Correct";
+  } else if(based! <0.8 && based! >=0.4){
+    return "Nearly Correct";
   }
   else if(based < 0.4 && based! >= 0.1){
-    return Colors.red;
+    return "Incorrect";
+  }
+  else{
+    return "Completely Incorrect";
+  }
+}
+
+Color chooseByPoint(double? based){
+  if(based! >=0.8){
+    return Color(0xff1EA108);
+  }else if(based! <0.8 && based! >=0.4){
+    return Color(0xffE0B419);
+  }
+  else if(based < 0.4 && based! >= 0.1){
+    return const Color(0xffCC0000);
   }else{
-    return Color.fromARGB(255, 31, 4, 2);
+    return Color(0xff5C5C5C);
   }
 }
 
 Widget userAnswer(){
-  return ListView(
-          children: [
-            Text("ANSWER 1"),
-            AutoSizeText
-            (StartSong.userLyric1!,style:TextStyle(color:chooseByPoint(PointData.answerPoint1))
-            ,maxLines:6),
-            Text("ANSWER 2"),
-            AutoSizeText
-            (StartSong.userLyric2!,style:TextStyle(color:chooseByPoint(PointData.answerPoint2))
-            ,maxLines:6),
-            Text("ANSWER 3"),
-            AutoSizeText
-            (StartSong.userLyric3!,style:TextStyle(color:chooseByPoint(PointData.answerPoint3))
-            ,maxLines:6),
+  return Column(
+    children: [
+      answerBox("Audio 1", infoPoint(PointData.answerPoint1), StartSong.userLyric1!, chooseByPoint(PointData.answerPoint1)),
+      SizedBox(height: 10,),
+      answerBox("Audio 2", infoPoint(PointData.answerPoint2), StartSong.userLyric2!, chooseByPoint(PointData.answerPoint2)),
+      SizedBox(height: 10,),
+      answerBox("Audio 3", infoPoint(PointData.answerPoint3), StartSong.userLyric3!, chooseByPoint(PointData.answerPoint3)),
+      SizedBox(height: 30,)
+    ],
+  );
+  // ListView(
+  //         children: [
+  //           Text("ANSWER 1"),
+  //           AutoSizeText
+  //           (StartSong.userLyric1!,style:TextStyle(color:chooseByPoint(PointData.answerPoint1))
+  //           ,maxLines:6),
+  //           Text("ANSWER 2"),
+  //           AutoSizeText
+  //           (StartSong.userLyric2!,style:TextStyle(color:chooseByPoint(PointData.answerPoint2))
+  //           ,maxLines:6),
+  //           Text("ANSWER 3"),
+  //           AutoSizeText
+  //           (StartSong.userLyric3!,style:TextStyle(color:chooseByPoint(PointData.answerPoint3))
+  //           ,maxLines:6),
             
-            // Add more content as needed
-          ],
-        );
+  //           // Add more content as needed
+  //         ],
+  //       );
 }
-Widget rightAnswer(){
-  return ListView(
-          children: [
-            Text("ANSWER 1"),
-            AutoSizeText(StartSong.lyric1!,style:TextStyle(color:Colors.black)
-            ,maxLines:6),// Add your content here, such as other containers and images
-            Text("ANSWER 2"),
-            AutoSizeText(StartSong.lyric2!,style:TextStyle(color:Colors.black)
-            ,maxLines:6),
-            Text("ANSWER 3"),
-            AutoSizeText(StartSong.lyric3!,style:TextStyle(color:Colors.black)
-            ,maxLines:6),
+
+Container answerBox(String audio, String info, String text, Color color) {
+  return Container(
+      padding: EdgeInsets.all(0),
+      // height: 20,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color:color)
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          
             
-            // Add more content as needed
-          ],
-        );
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.only(topRight: Radius.circular(9), topLeft: Radius.circular(9))
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                headerText(audio),
+                Container(width: mediaQueryData.size.width*5/10, alignment: Alignment.centerRight, child: headerText(info))
+              ],
+            ),
+          ),
+          Container(
+            color: color.withOpacity(0.2),
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.all(10),
+            child: Text(text),
+          )
+        ],
+      ),
+    );
+}
+
+Text headerText(String text) => Text(text, overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16, fontFamily: "Poppins"),);
+Widget rightAnswer(){
+  return Column(
+    children: [
+      answerBox("Audio 1", "", StartSong.lyric1!, Color(0xff1CC2D9)),
+      SizedBox(height: 10,),
+      answerBox("Audio 2", "", StartSong.lyric2!, Color(0xff1CC2D9)),
+      SizedBox(height: 10,),
+      answerBox("Audio 3", "", StartSong.lyric3!, Color(0xff1CC2D9)),
+      SizedBox(height: 30,)
+    ],
+  );
+  // ListView(
+  //         children: [
+  //           Text("ANSWER 1"),
+  //           AutoSizeText(StartSong.lyric1!,style:TextStyle(color:Colors.black)
+  //           ,maxLines:6),// Add your content here, such as other containers and images
+  //           Text("ANSWER 2"),
+  //           AutoSizeText(StartSong.lyric2!,style:TextStyle(color:Colors.black)
+  //           ,maxLines:6),
+  //           Text("ANSWER 3"),
+  //           AutoSizeText(StartSong.lyric3!,style:TextStyle(color:Colors.black)
+  //           ,maxLines:6),
+            
+  //           // Add more content as needed
+  //         ],
+  //       );
 }
 Widget chooseAnswer(){
   if(this.option==0){return userAnswer() ; }
